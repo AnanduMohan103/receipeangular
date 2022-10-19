@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-viewreceipe',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewreceipeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private myapi:ApiService) {
+    this.fetchData()
+   }
 
-  receipeData=[{"id":"1","name":"biryani","ing":"rice,chicken,masala","category":"Non-Veg","duration":"2hr"}]
+  fetchData=()=>{
+    this.myapi.viewReceipe().subscribe(
+      (data)=>{
+        this.receipeData=data
+      }
+    )
+  }
+
+  receipeData:any=[]
   ngOnInit(): void {
   }
 
